@@ -1,0 +1,68 @@
+﻿@page
+@model RssApp.Pages.News.ListNewsModel
+@{
+
+
+
+    <label>Listelinecek olan haber :</label>
+    <select onchange="Changing(this)"   style="width:350px;" w3-input w3-border w3-sand"   asp-items="Model.options"></select>
+
+    <br />
+    <br />
+
+    <label>Haber:</label>
+
+    <marquee direction="up | down | left | right" width="100%" height="500" behavior="alternate">
+        <div id="news"></div>
+    </marquee>
+
+
+
+    <script>
+    const Changing = (selectobject) => {
+        var value = selectobject.value;
+        console.log(value);
+
+         fetch(value)
+            .then(response => response.text())
+            .then(str => new DOMParser().parseFromString(str, "text/xml"))
+            .then(data => {
+
+                const items = data.querySelectorAll("item");
+
+
+                let html = '';
+
+
+                items.forEach(el => {
+
+                    let title = el.querySelector("title").innerHTML.replace("<![CDATA[", "").replace("]]>", "");
+
+                    const description = el.querySelector("description").innerHTML.replace("<![CDATA[", "").replace("]]>", "");
+
+                    html += `
+                    <div>
+                        <img src="${el.querySelector("link").innerHTML}" alt="">
+                        <h2>
+                            <a href="${el.querySelector("link").innerHTML}" target="_blank" rel="noopener">
+                        ${title}
+                        </a>
+                        <p style="font-weight: normal;">
+                        ${description}
+                        </p>
+                        </h2>
+                    </div>`;
+                });
+
+
+                document.getElementById("news").innerHTML = html;
+
+            })
+
+    }
+
+
+
+
+    </script>
+    }

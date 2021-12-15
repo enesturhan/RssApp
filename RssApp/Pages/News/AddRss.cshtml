@@ -1,0 +1,43 @@
+﻿@page
+@model RssApp.Pages.News.AddRssModel
+@{
+
+
+
+    <form method="post">
+
+        <label>Subject :</label>
+        <input style="width:450px;" class="w3-input w3-border w3-sand" asp-for="NewsInput.NewsName" />
+        <span asp-validation-for="NewsInput.NewsName"></span>
+        <br />
+        <br />
+        <br />
+        <label>Rss Link:</label>
+
+
+        <input style="width:450px;" class="w3-input w3-border w3-sand" asp-for="NewsInput.RssLink" />
+        <span asp-validation-for="NewsInput.RssLink"></span>
+        <br />
+        <br />
+
+
+
+
+        <label>Priority :</label>
+        <select asp-for="NewsInput.Priority" style="width:350px;" w3-input w3-border w3-sand" asp-items="Model.options"></select>
+        <span asp-validation-for="SelectedPriority"></span>
+        <br />
+        <br />
+
+
+        <input style="float:right;" type="submit" value="Save" class="w3-button w3-circle w3-teal" asp-page-handler="Save" />
+    </form>
+
+    
+
+   
+
+}
+
+
+
